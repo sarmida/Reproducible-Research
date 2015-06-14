@@ -1,0 +1,50 @@
+---
+#title: "Peer Assesment 1"
+##author: "Santiago Armida"
+##date: "12 de junio de 2015"
+###output: html_document
+---
+
+The variables included in this dataset are:
+  steps: Number of steps taking in a 5-minute interval (missing values are coded as NA)
+  date: The date on which the measurement was taken in YYYY-MM-DD format
+  interval: Identifier for the 5-minute interval in which measurement was taken
+The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.
+
+For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+#  Reproductible Research
+# by Santiago Armida: June 14, 2015
+## read data and setup envirnment
+# setwd("~/Documents/Data Science 5") it will read the data in current directory
+
+```{r}
+#Install and load libraries
+    library(plyr)
+#Install can be comented (#) if the package is already down
+# packages to solve question via SQL
+    install.packages("sqldf")
+    library(sqldf)
+## read data
+    setwd("~/Documents/Data Science 5")
+    acts <- read.csv("activity.csv")
+```
+Calculate the mean and total steps per day
+```{r, echo=FALSE}
+stepdata <- sqldf("select date, avg(steps) as avgstep, sum(steps) as sumsteps from acts where steps <> 'NA' group by date")
+# nrow(NEIYEAR)
+```
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+hist(stepdata$sumsteps)
+```
+
+Another chunk, not displayed
+```{r simultation, echo=FALSE}
+set.seed(1)
+x <- rnorm(100)
+mean(x)
+````
+Randoms
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
